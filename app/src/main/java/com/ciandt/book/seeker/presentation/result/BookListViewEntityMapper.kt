@@ -10,7 +10,8 @@ class BookListViewEntityMapper :
             BookListViewEntity(
                 author = it.author,
                 urlBookImage = it.urlBookImage,
-                title = it.title
+                title = it.title,
+                urlPreview = it.urlPreview
             )
         }
     }

@@ -11,7 +11,8 @@ class BookListStoreModelMapper :
             BookListStoreModel(
                 author = it.artistName,
                 title = it.trackName,
-                urlBookImage = it.artworkUrl
+                urlBookImage = it.artworkUrl,
+                urlPreview = it.trackViewUrl
             )
         }
     }

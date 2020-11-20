@@ -44,7 +44,7 @@ class BookListAdapter() :
     override fun onBindViewHolder(holder: DataBindViewHolder<RowBookBinding>, position: Int) {
         holder.binding.setVariable(BR.viewEntity, items[position])
         holder.binding.rowBook.setOnClickListener {
-            _clickItemEvent.postValue(items[position].urlBookImage)
+            _clickItemEvent.postValue(items[position].urlPreview)
         }
     }
 

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
@@ -15,8 +16,6 @@ class DetailsFragment : Fragment() {
         fun newInstance() = DetailsFragment()
     }
 
-    private lateinit var viewModel: DetailsViewModel
-
     val args: DetailsFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -26,10 +25,9 @@ class DetailsFragment : Fragment() {
         return inflater.inflate(R.layout.details_fragment, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(DetailsViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val webView: WebView = view.findViewById(R.id.webview)
+        webView.loadUrl(args.urlDetails)
     }
-
 }

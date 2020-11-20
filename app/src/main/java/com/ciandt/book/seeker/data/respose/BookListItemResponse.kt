@@ -10,5 +10,7 @@ data class BookListItemResponse(
     @Json(name = "artworkUrl100")
     val artworkUrl: String,
     @Json(name = "artistName")
-    val artistName: String
+    val artistName: String,
+    @Json(name = "trackViewUrl")
+    val trackViewUrl: String
 )
