@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -32,6 +33,21 @@ class ResultFragment : Fragment() {
 
     private var binding: ResultFragmentBinding by Delegates.notNull()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val callback = object : OnBackPressedCallback(
+            true
+            /** true means that the callback is enabled */
+        ) {
+            override fun handleOnBackPressed() {
+
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,9 +67,17 @@ class ResultFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpRecyclerView()
         bookListAdapter.clickItemEvent.observe(viewLifecycleOwner, {
-            val action = ResultFragmentDirections.actionResultFragmentToDetailsFragment(it)
+            val action =
+                ResultFragmentDirections.actionResultFragmentToDetailsFragment(it, args.searchText)
             view.findNavController().navigate(action)
         })
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                view.findNavController().navigate(R.id.action_resultFragment_to_searchFragment)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -61,7 +85,6 @@ class ResultFragment : Fragment() {
 
         val searchText = args.searchText
         viewModel.getBooks(searchText)
-        // TODO: Use the ViewModel
     }
 
     private fun setUpRecyclerView() {

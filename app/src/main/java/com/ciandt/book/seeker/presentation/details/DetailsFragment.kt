@@ -5,8 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.ciandt.book.seeker.R
 
@@ -17,6 +18,10 @@ class DetailsFragment : Fragment() {
     }
 
     val args: DetailsFragmentArgs by navArgs()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,5 +34,15 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val webView: WebView = view.findViewById(R.id.webview)
         webView.loadUrl(args.urlDetails)
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val action =
+                    DetailsFragmentDirections.actionDetailsFragmentToResultFragment(args.searchText)
+                view.findNavController().navigate(action)
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 }
