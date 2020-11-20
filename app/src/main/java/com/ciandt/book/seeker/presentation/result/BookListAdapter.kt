@@ -23,10 +23,8 @@ class BookListAdapter() :
     val clickItemEvent: LiveData<String> get() = _clickItemEvent
     private val _clickItemEvent = MutableLiveData<String>()
 
-
     class DataBindViewHolder<out T : ViewDataBinding>(val binding: T) :
         RecyclerView.ViewHolder(binding.root)
-
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

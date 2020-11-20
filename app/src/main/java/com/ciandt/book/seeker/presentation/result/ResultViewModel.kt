@@ -7,7 +7,7 @@ import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
 class ResultViewModel @ViewModelInject constructor(
-    val resultInteractor: ResultInteractor
+    private val resultInteractor: ResultInteractor
 ) : ViewModel() {
 
     val bookList = ObservableField<List<BookListViewEntity>>()

@@ -33,21 +33,6 @@ class ResultFragment : Fragment() {
 
     private var binding: ResultFragmentBinding by Delegates.notNull()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val callback = object : OnBackPressedCallback(
-            true
-            /** true means that the callback is enabled */
-        ) {
-            override fun handleOnBackPressed() {
-
-            }
-        }
-
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -82,7 +67,6 @@ class ResultFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         val searchText = args.searchText
         viewModel.getBooks(searchText)
     }
@@ -94,5 +78,10 @@ class ResultFragment : Fragment() {
             }
             adapter = bookListAdapter
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.recyclerviewBookList.adapter = null
     }
 }

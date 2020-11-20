@@ -8,7 +8,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class ResultRepository @Inject constructor(
-    val itunesBookService: ItunesBookService
+    private val itunesBookService: ItunesBookService
 ) {
     fun searchBooks(term: String?): Single<List<BookListStoreModel>> {
         return itunesBookService

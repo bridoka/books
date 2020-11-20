@@ -6,7 +6,7 @@ import io.reactivex.Flowable
 import javax.inject.Inject
 
 class SearchInteractor @Inject constructor(
-    val searchRepository: SearchRepository
+    private val searchRepository: SearchRepository
 ) {
 
     fun saveLastSearch(searchText: String) {

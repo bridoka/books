@@ -5,7 +5,7 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class ResultInteractor @Inject constructor(
-    val resultRepository: ResultRepository
+    private val resultRepository: ResultRepository
 ) {
     fun getBooksList(term: String?): Single<List<BookListViewEntity>> {
         return resultRepository

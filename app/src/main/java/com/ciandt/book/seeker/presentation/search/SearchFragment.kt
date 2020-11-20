@@ -60,6 +60,7 @@ class SearchFragment : Fragment() {
 
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
+                requireActivity().finish()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
@@ -72,5 +73,10 @@ class SearchFragment : Fragment() {
             }
             adapter = lastSearchAdapter
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.recyclerviewLastSearch.adapter = null
     }
 }

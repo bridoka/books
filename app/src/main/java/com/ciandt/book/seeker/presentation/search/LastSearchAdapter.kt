@@ -26,7 +26,6 @@ class LastSearchAdapter : RecyclerView.Adapter<LastSearchAdapter.DataBindViewHol
             )
         )
 
-
     override fun onBindViewHolder(holder: DataBindViewHolder, position: Int) {
         holder.binding.setVariable(BR.viewEntity, items[position])
     }
