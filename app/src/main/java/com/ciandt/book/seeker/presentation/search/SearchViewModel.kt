@@ -6,12 +6,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.Flowable
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
 class SearchViewModel @ViewModelInject constructor(
     private val searchInteractor: SearchInteractor
 ) : ViewModel() {
+
+    var compositeDisposable = CompositeDisposable()
 
     val lastSearches = ObservableField<List<LastSearchViewEntity>>()
 
@@ -33,7 +37,7 @@ class SearchViewModel @ViewModelInject constructor(
                 it?.let {
                     searchInteractor.saveLastSearch(it)
                 }
-            }
+            }.addTo(this.compositeDisposable)
     }
 
     private fun getLastSearches() {
@@ -44,10 +48,15 @@ class SearchViewModel @ViewModelInject constructor(
                 lastSearches.set(it)
             }, {
                 Timber.w("Error")
-            })
+            }).addTo(this.compositeDisposable)
     }
 
     fun onClickSearch() {
         _onClickButton.postValue(Unit)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.clear()
     }
 }
