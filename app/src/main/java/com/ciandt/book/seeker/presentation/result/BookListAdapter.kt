@@ -6,19 +6,32 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ciandt.book.seeker.BR
 import com.ciandt.book.seeker.R
 import com.ciandt.book.seeker.databinding.RowBookBinding
 
-class BookListAdapter : RecyclerView.Adapter<BookListAdapter.DataBindViewHolder>() {
+
+class BookListAdapter() :
+    RecyclerView.Adapter<BookListAdapter.DataBindViewHolder<RowBookBinding>>() {
 
     private var items: List<BookListViewEntity> = arrayListOf()
 
-    class DataBindViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root)
+    val clickItemEvent: LiveData<String> get() = _clickItemEvent
+    private val _clickItemEvent = MutableLiveData<String>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataBindViewHolder =
+
+    class DataBindViewHolder<out T : ViewDataBinding>(val binding: T) :
+        RecyclerView.ViewHolder(binding.root)
+
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): DataBindViewHolder<RowBookBinding> =
         DataBindViewHolder(
             DataBindingUtil.inflate<RowBookBinding>(
                 LayoutInflater.from(parent.context),
@@ -28,8 +41,11 @@ class BookListAdapter : RecyclerView.Adapter<BookListAdapter.DataBindViewHolder>
             )
         )
 
-    override fun onBindViewHolder(holder: DataBindViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DataBindViewHolder<RowBookBinding>, position: Int) {
         holder.binding.setVariable(BR.viewEntity, items[position])
+        holder.binding.rowBook.setOnClickListener {
+            _clickItemEvent.postValue(items[position].urlBookImage)
+        }
     }
 
     override fun getItemCount() = items.size

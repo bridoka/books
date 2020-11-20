@@ -11,6 +11,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/row_book"
         android:layout_width="match_parent"
         android:layout_height="88dp">
 

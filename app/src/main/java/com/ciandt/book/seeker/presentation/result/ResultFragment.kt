@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ciandt.book.seeker.R
@@ -49,6 +50,10 @@ class ResultFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpRecyclerView()
+        bookListAdapter.clickItemEvent.observe(viewLifecycleOwner, {
+            val action = ResultFragmentDirections.actionResultFragmentToDetailsFragment(it)
+            view.findNavController().navigate(action)
+        })
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
