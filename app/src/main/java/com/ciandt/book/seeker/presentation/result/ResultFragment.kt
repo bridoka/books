@@ -25,7 +25,7 @@ class ResultFragment : Fragment() {
 
     private val viewModel: ResultViewModel by viewModels()
 
-    val args: ResultFragmentArgs by navArgs()
+    private val args: ResultFragmentArgs by navArgs()
 
     private val bookListAdapter: BookListAdapter by lazy {
         BookListAdapter()

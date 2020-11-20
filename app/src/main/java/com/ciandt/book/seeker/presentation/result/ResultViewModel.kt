@@ -12,7 +12,7 @@ class ResultViewModel @ViewModelInject constructor(
     private val resultInteractor: ResultInteractor
 ) : ViewModel() {
 
-    var compositeDisposable = CompositeDisposable()
+    private var compositeDisposable = CompositeDisposable()
 
     val bookList = ObservableField<List<BookListViewEntity>>()
 

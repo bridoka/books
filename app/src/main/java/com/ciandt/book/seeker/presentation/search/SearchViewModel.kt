@@ -15,7 +15,7 @@ class SearchViewModel @ViewModelInject constructor(
     private val searchInteractor: SearchInteractor
 ) : ViewModel() {
 
-    var compositeDisposable = CompositeDisposable()
+    private var compositeDisposable = CompositeDisposable()
 
     val lastSearches = ObservableField<List<LastSearchViewEntity>>()
 

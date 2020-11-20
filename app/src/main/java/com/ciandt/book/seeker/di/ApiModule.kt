@@ -26,7 +26,7 @@ object ApiModule {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
             .client(getOkHttp())
             .build()
-            .create(ItunesBookService::class.java);
+            .create(ItunesBookService::class.java)
     }
 
     private fun getMoshi(): Moshi = Moshi.Builder().build()

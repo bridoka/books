@@ -15,7 +15,7 @@ import com.ciandt.book.seeker.R
 import com.ciandt.book.seeker.databinding.RowBookBinding
 
 
-class BookListAdapter() :
+class BookListAdapter :
     RecyclerView.Adapter<BookListAdapter.DataBindViewHolder<RowBookBinding>>() {
 
     private var items: List<BookListViewEntity> = arrayListOf()
@@ -31,7 +31,7 @@ class BookListAdapter() :
         viewType: Int
     ): DataBindViewHolder<RowBookBinding> =
         DataBindViewHolder(
-            DataBindingUtil.inflate<RowBookBinding>(
+            DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
                 R.layout.row_book,
                 parent,
@@ -71,7 +71,7 @@ class BookListAdapter() :
         ) = url?.let {
             Glide.with(view.context)
                 .load(url)
-                .into(view);
+                .into(view)
         }
     }
 }
