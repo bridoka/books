@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.ciandt.book.seeker.presentation.result.ResultViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_book_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:resultListBooks="@{viewModel.bookList}" />
+
+    </androidx.core.widget.NestedScrollView>
+</layout>

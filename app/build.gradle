@@ -1,0 +1,193 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'jacoco'
+apply plugin: 'io.gitlab.arturbosch.detekt'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.ciandt.book.seeker"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += [
+                        "room.schemaLocation"  : "$projectDir/schemas".toString(),
+                        "room.incremental"     : "true",
+                        "room.expandProjection": "true"]
+            }
+        }
+    }
+    buildTypes {
+        debug {
+            testCoverageEnabled = true
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildFeatures {
+        dataBinding {
+            enabled = true
+        }
+    }
+    testOptions {
+        unitTests.includeAndroidResources = true
+        animationsDisabled true
+        execution "ANDROIDX_TEST_ORCHESTRATOR"
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    androidExtensions {
+        experimental = true
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/AL2.0'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    // androidx dependencies
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
+    // kotlin & coroutines dependencies
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.10'
+    implementation 'org.jetbrains.kotlin:kotlin-reflect:1.4.10'
+    implementation 'org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.4.10'
+
+
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    implementation 'com.android.support:support-annotations:28.0.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    //hilt
+    implementation "com.google.dagger:hilt-android:2.28-alpha"
+    kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
+    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
+    kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
+
+    def nav_version = "2.3.1"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+    implementation "androidx.navigation:navigation-compose:1.0.0-alpha02"
+
+    api "androidx.room:room-runtime:2.2.5"
+    kapt "androidx.room:room-compiler:2.2.5"
+    implementation "androidx.room:room-rxjava2:2.2.5"
+    implementation "androidx.room:room-ktx:2.2.5"
+
+    def rxJavaVersion = '2.2.20'
+    def rxJavaAndroidVersion = '2.1.1'
+    def rxKotlinVersion = '2.4.0'
+    implementation "io.reactivex.rxjava2:rxandroid:$rxJavaAndroidVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
+
+
+    def retrofitVersion = '2.9.0'
+    def moshiVersion = '1.9.2'
+    def okhttpVersion = '3.13.1'
+    api "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+    implementation("com.squareup.moshi:moshi-adapters:$moshiVersion")
+    implementation "com.squareup.moshi:moshi-kotlin:$moshiVersion"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.8.1"
+
+    //glide
+    def glideVersion = '4.11.0'
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    kapt "com.github.bumptech.glide:compiler:$glideVersion"
+
+    // test dependencies
+    testImplementation 'androidx.test:core:1.3.0'
+    testImplementation 'junit:junit:4.13'
+    testImplementation 'io.mockk:mockk:1.9.3'
+    testImplementation 'com.squareup.okhttp3:mockwebserver:3.9.1'
+
+    // android test dependencies
+    androidTestImplementation 'androidx.test:core:1.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test:rules:1.3.0'
+    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+
+    androidTestImplementation "androidx.room:room-testing:2.3.0-alpha03"
+
+    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:1.0.1"
+}
+
+detekt {
+    toolVersion '1.0.1'
+    input = files("src/main/java")
+    config = files("$rootDir/default-detekt-config.yml")
+    reports {
+        xml { enabled = false }
+        txt { enabled = false }
+    }
+}
+
+configurations {
+    jacocoReport
+}
+
+jacoco {
+    toolVersion = "0.8.4"
+}
+
+task jacocoAndroidTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
+
+    group = "Reporting"
+    description = "Generate unified Jacoco code coverage report"
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
+    def coverageTree = fileTree(dir: "${buildDir}/intermediates/javac/debug/", excludes: fileFilter)
+    def kotlinCoverageTree = fileTree(dir: "${buildDir}/tmp/kotlin-classes/debug/com/ciandt/book/seeker/", excludes: fileFilter)
+
+    def mainSrc = "${project.projectDir}/src/androidTest/java/com/ciandt/book/seeker/"
+
+    sourceDirectories.setFrom(files([mainSrc]))
+    classDirectories.setFrom(files([coverageTree], [kotlinCoverageTree]))
+    executionData.setFrom(fileTree(dir: "$buildDir", includes: [
+            "jacoco/testDebugUnitTest.exec",
+            "outputs/code_coverage/debugAndroidTest/connected/**/*.ec"
+    ]))
+}

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Livros</string>
+    <string name="search_title">Pesquisa de livros</string>
+    <string name="search_hint">Digite aqui o nome do livro</string>
+    <string name="search_title_button">Pesquisar</string>
+    <string name="search_title_last_searches">Últimas pesquisas</string>
+</resources>

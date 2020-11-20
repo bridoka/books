@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.ciandt.book.seeker.presentation.search.SearchViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            style="@style/TextAppearance.Title.Headline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_title"
+            tools:text="@string/search_title" />
+
+        <EditText
+            android:id="@+id/edit_search_book"
+            style="@style/TextAppearance.Subtitle1"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/ic_search"
+            android:drawablePadding="4dp"
+            android:hint="@string/search_hint" />
+
+        <Button
+            style="@style/Appearance.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:onClick="@{() -> viewModel.onClickSearch()}"
+            android:text="@string/search_title_button" />
+
+        <TextView
+            style="@style/TextAppearance.Title.Headline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/search_title_last_searches"
+            tools:text="@string/search_title_last_searches" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_last_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            tools:resultListSearch="@{viewModel.lastSearches}" />
+
+    </LinearLayout>
+</layout>
