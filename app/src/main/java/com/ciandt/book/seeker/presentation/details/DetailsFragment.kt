@@ -29,7 +29,7 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val webView: WebView = view.findViewById(R.id.webview)
-        webView.loadUrl(args.urlDetails)
+        args.urlDetails?.let { webView.loadUrl(it) }
 
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

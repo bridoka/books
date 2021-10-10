@@ -1,17 +1,19 @@
 package com.ciandt.book.seeker.presentation.search
 
 import androidx.databinding.ObservableField
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Flowable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
+import javax.inject.Inject
 
-class SearchViewModel @ViewModelInject constructor(
+@HiltViewModel
+class SearchViewModel @Inject constructor(
     private val searchInteractor: SearchInteractor
 ) : ViewModel() {
 

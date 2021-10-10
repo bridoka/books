@@ -1,14 +1,16 @@
 package com.ciandt.book.seeker.presentation.result
 
 import androidx.databinding.ObservableField
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
+import javax.inject.Inject
 
-class ResultViewModel @ViewModelInject constructor(
+@HiltViewModel
+class ResultViewModel @Inject constructor(
     private val resultInteractor: ResultInteractor
 ) : ViewModel() {
 

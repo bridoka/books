@@ -24,7 +24,7 @@ class SearchFragment : Fragment() {
         fun newInstance() = SearchFragment()
     }
 
-    private val viewModel: SearchViewModel by viewModels()
+    val viewModel: SearchViewModel by viewModels()
 
     private val lastSearchAdapter: LastSearchAdapter by lazy {
         LastSearchAdapter()
