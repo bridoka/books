@@ -10,6 +10,17 @@
         <item name="android:textColorHint">@color/lightGray</item>
     </style>
 
+    <style name="EditTextStyle1" parent="Widget.AppCompat.EditText">
+        <item name="fontFamily">@font/oswald</item>
+        <item name="android:fontFamily">@font/oswald_bold</item>
+    </style>
+
+    <style name="TextAppearance.AppCompat.Button1" parent="TextAppearance.AppCompat.Widget.Button.Colored">
+        <item name="fontFamily">@font/oswald</item>
+        <item name="android:fontFamily">@font/oswald_bold</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
     <style name="TextAppearance.Title.Headline5" parent="TextAppearance.MaterialComponents.Headline5">
         <item name="fontFamily">@font/oswald</item>
         <item name="android:fontFamily">@font/oswald_bold</item>

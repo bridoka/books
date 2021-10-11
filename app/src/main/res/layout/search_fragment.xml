@@ -15,16 +15,9 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <TextView
-            style="@style/TextAppearance.Title.Headline5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/search_title"
-            tools:text="@string/search_title" />
-
         <EditText
             android:id="@+id/edit_search_book"
-            style="@style/TextAppearance.Subtitle1"
+            style="@style/EditTextStyle1"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
@@ -33,7 +26,7 @@
             android:hint="@string/search_hint" />
 
         <Button
-            style="@style/Appearance.Button"
+            style="@style/TextAppearance.AppCompat.Button1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

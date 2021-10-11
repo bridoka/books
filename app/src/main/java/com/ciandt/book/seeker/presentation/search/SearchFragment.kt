@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -36,7 +35,7 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.search_fragment,
@@ -53,17 +52,12 @@ class SearchFragment : Fragment() {
         setUpRecyclerView()
         viewModel.onClickButton.observe(viewLifecycleOwner, {
             val editText = view.edit_search_book.text.toString()
-            viewModel.searchBooks(Flowable.just(editText))
-            val action = SearchFragmentDirections.actionSearchFragmentToResultFragment(editText)
-            view.findNavController().navigate(action)
-        })
-
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                requireActivity().finish()
+            if (editText.isNotEmpty()) {
+                viewModel.searchBooks(Flowable.just(editText))
+                val action = SearchFragmentDirections.actionSearchFragmentToResultFragment(editText)
+                view.findNavController().navigate(action)
             }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+        })
     }
 
     private fun setUpRecyclerView() {
