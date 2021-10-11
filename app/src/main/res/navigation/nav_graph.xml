@@ -24,7 +24,7 @@
             app:nullable="true" />
         <action
             android:id="@+id/action_resultFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />5
+            app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
