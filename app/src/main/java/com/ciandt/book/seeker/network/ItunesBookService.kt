@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ItunesBookService {
-    @GET("search?entity=ibook")
+    @GET("search?entity=ibook&limit=20")
     fun getBookList(
         @Query("term") term: String?
     ): Single<BookListResponse>

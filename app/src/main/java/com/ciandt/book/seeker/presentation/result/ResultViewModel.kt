@@ -1,6 +1,8 @@
 package com.ciandt.book.seeker.presentation.result
 
+import android.view.View
 import androidx.databinding.ObservableField
+import androidx.databinding.ObservableInt
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
@@ -16,6 +18,9 @@ class ResultViewModel @Inject constructor(
 
     private var compositeDisposable = CompositeDisposable()
 
+    val shimmerVisibility = ObservableInt(View.VISIBLE)
+    val listBooksVisibility = ObservableInt(View.GONE)
+
     val bookList = ObservableField<List<BookListViewEntity>>()
 
     fun getBooks(searchText: String?) {
@@ -23,8 +28,10 @@ class ResultViewModel @Inject constructor(
             .subscribeOn(Schedulers.io())
             .subscribe({
                 bookList.set(it)
+                shimmerVisibility.set(View.GONE)
+                listBooksVisibility.set(View.VISIBLE)
             }, {
-                Timber.w("Error")
+                Timber.w(it, "Error")
             }).addTo(this.compositeDisposable)
     }
 

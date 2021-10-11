@@ -7,12 +7,12 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ciandt.book.seeker.BR
 import com.ciandt.book.seeker.R
 import com.ciandt.book.seeker.databinding.RowBookBinding
+import com.ciandt.book.seeker.utils.SingleLiveEvent
 
 
 class BookListAdapter :
@@ -21,7 +21,7 @@ class BookListAdapter :
     private var items: List<BookListViewEntity> = arrayListOf()
 
     val clickItemEvent: LiveData<String> get() = _clickItemEvent
-    private val _clickItemEvent = MutableLiveData<String>()
+    private val _clickItemEvent = SingleLiveEvent<String>()
 
     class DataBindViewHolder<out T : ViewDataBinding>(val binding: T) :
         RecyclerView.ViewHolder(binding.root)

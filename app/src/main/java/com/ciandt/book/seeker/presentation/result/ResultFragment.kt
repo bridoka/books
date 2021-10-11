@@ -16,6 +16,7 @@ import com.ciandt.book.seeker.databinding.ResultFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.properties.Delegates
 
+
 @AndroidEntryPoint
 class ResultFragment : Fragment() {
 
@@ -32,6 +33,10 @@ class ResultFragment : Fragment() {
     }
 
     private var binding: ResultFragmentBinding by Delegates.notNull()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,13 +61,13 @@ class ResultFragment : Fragment() {
                 ResultFragmentDirections.actionResultFragmentToDetailsFragment(it, args.searchText)
             view.findNavController().navigate(action)
         })
-
+/*
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 view.findNavController().navigate(R.id.action_resultFragment_to_searchFragment)
             }
         }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)*/
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

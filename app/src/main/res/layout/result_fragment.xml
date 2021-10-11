@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -9,15 +10,36 @@
             type="com.ciandt.book.seeker.presentation.result.ResultViewModel" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_book_list"
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_view_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:resultListBooks="@{viewModel.bookList}" />
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.shimmerVisibility}">
 
-    </androidx.core.widget.NestedScrollView>
+            <include
+                layout="@layout/result_skeleton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_book_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{viewModel.listBooksVisibility}"
+                tools:listitem="@layout/row_book"
+                tools:resultListBooks="@{viewModel.bookList}" />
+
+        </androidx.core.widget.NestedScrollView>
+
+    </FrameLayout>
 </layout>

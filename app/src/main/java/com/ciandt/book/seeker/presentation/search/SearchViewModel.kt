@@ -4,6 +4,7 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ciandt.book.seeker.utils.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Flowable
 import io.reactivex.disposables.CompositeDisposable
@@ -21,7 +22,7 @@ class SearchViewModel @Inject constructor(
 
     val lastSearches = ObservableField<List<LastSearchViewEntity>>()
 
-    private var _onClickButton = MutableLiveData<Unit>()
+    private var _onClickButton = SingleLiveEvent<Unit>()
     val onClickButton: LiveData<Unit>
         get() = _onClickButton
 

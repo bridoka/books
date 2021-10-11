@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.ciandt.book.seeker.presentation.search.SearchFragment"
-        android:label="SearchFragment">
+        android:label="@string/search_title">
         <action
             android:id="@+id/action_searchFragment_to_resultFragment"
             app:destination="@id/resultFragment" />
@@ -16,7 +16,7 @@
     <fragment
         android:id="@+id/resultFragment"
         android:name="com.ciandt.book.seeker.presentation.result.ResultFragment"
-        android:label="result_fragment"
+        android:label="@string/title_result"
         tools:layout="@layout/result_fragment">
         <argument
             android:name="searchText"
@@ -24,17 +24,12 @@
             app:nullable="true" />
         <action
             android:id="@+id/action_resultFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
-        <action
-            android:id="@+id/action_resultFragment_to_searchFragment"
-            app:destination="@id/searchFragment"
-            app:popUpTo="@+id/resultFragment"
-            app:popUpToInclusive="true" />
+            app:destination="@id/detailsFragment" />5
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.ciandt.book.seeker.presentation.details.DetailsFragment"
-        android:label="details_fragment"
+        android:label="@string/title_details"
         tools:layout="@layout/details_fragment">
         <argument
             android:name="urlDetails"
@@ -44,10 +39,5 @@
             android:name="searchText"
             app:argType="string"
             app:nullable="true" />
-        <action
-            android:id="@+id/action_detailsFragment_to_resultFragment"
-            app:destination="@id/resultFragment"
-            app:popUpTo="@id/detailsFragment"
-            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

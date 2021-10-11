@@ -4,4 +4,7 @@
     <string name="search_hint">Digite aqui o nome do livro</string>
     <string name="search_title_button">Pesquisar</string>
     <string name="search_title_last_searches">Últimas pesquisas</string>
+    <string name="title_details">Detalhes</string>
+    <string name="title_result">Livros</string>
+    <string name="title_search">Busca</string>
 </resources>

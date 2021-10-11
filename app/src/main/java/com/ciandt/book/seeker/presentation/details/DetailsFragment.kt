@@ -30,15 +30,5 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val webView: WebView = view.findViewById(R.id.webview)
         args.urlDetails?.let { webView.loadUrl(it) }
-
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                val action =
-                    DetailsFragmentDirections.actionDetailsFragmentToResultFragment(args.searchText)
-                view.findNavController().navigate(action)
-            }
-        }
-
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 }
