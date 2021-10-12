@@ -20,7 +20,7 @@ class SearchViewModel @Inject constructor(
 
     val lastSearches = ObservableField<List<LastSearchViewEntity>>()
 
-    var searchText= ObservableField<String>()
+    var searchText = ObservableField<String>()
 
     private var _onClickButton = SingleLiveEvent<String>()
     val onClickButton: LiveData<String>
@@ -30,13 +30,12 @@ class SearchViewModel @Inject constructor(
         getLastSearches()
     }
 
-    fun saveTerm() {
+    private fun saveTerm() {
         searchText.get()?.let {
             searchInteractor.saveLastSearch(it)
                 .subscribeOn(Schedulers.io())
-                .subscribe {
-                    getLastSearches()
-                }.addTo(this.compositeDisposable)
+                .subscribe()
+                .addTo(this.compositeDisposable)
         }
     }
 
@@ -48,7 +47,8 @@ class SearchViewModel @Inject constructor(
                 lastSearches.set(it)
             }, {
                 Timber.w("Error")
-            }).addTo(this.compositeDisposable)
+            })
+            .addTo(this.compositeDisposable)
     }
 
     fun onClickSearch() {
