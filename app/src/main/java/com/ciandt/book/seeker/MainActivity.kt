@@ -9,9 +9,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import androidx.navigation.ui.setupActionBarWithNavController
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity: AppCompatActivity() {
 
     private var navController: NavController? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

@@ -2,11 +2,9 @@ package com.ciandt.book.seeker.presentation.search
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ciandt.book.seeker.utils.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.Flowable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
@@ -22,25 +20,24 @@ class SearchViewModel @Inject constructor(
 
     val lastSearches = ObservableField<List<LastSearchViewEntity>>()
 
-    private var _onClickButton = SingleLiveEvent<Unit>()
-    val onClickButton: LiveData<Unit>
+    var searchText= ObservableField<String>()
+
+    private var _onClickButton = SingleLiveEvent<String>()
+    val onClickButton: LiveData<String>
         get() = _onClickButton
 
     init {
         getLastSearches()
     }
 
-    fun searchBooks(search: Flowable<String>) {
-        search
-            .doOnComplete {
-                getLastSearches()
-            }
-            .subscribeOn(Schedulers.io())
-            .subscribe {
-                it?.let {
-                    searchInteractor.saveLastSearch(it)
-                }
-            }.addTo(this.compositeDisposable)
+    fun saveTerm() {
+        searchText.get()?.let {
+            searchInteractor.saveLastSearch(it)
+                .subscribeOn(Schedulers.io())
+                .subscribe {
+                    getLastSearches()
+                }.addTo(this.compositeDisposable)
+        }
     }
 
     private fun getLastSearches() {
@@ -55,7 +52,8 @@ class SearchViewModel @Inject constructor(
     }
 
     fun onClickSearch() {
-        _onClickButton.postValue(Unit)
+        saveTerm()
+        _onClickButton.postValue(searchText.get())
     }
 
     override fun onCleared() {

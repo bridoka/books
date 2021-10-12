@@ -12,16 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ciandt.book.seeker.R
 import com.ciandt.book.seeker.databinding.SearchFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.Flowable
-import kotlinx.android.synthetic.main.search_fragment.view.*
 import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = SearchFragment()
-    }
 
     val viewModel: SearchViewModel by viewModels()
 
@@ -51,10 +45,8 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpRecyclerView()
         viewModel.onClickButton.observe(viewLifecycleOwner, {
-            val editText = view.edit_search_book.text.toString()
-            if (editText.isNotEmpty()) {
-                viewModel.searchBooks(Flowable.just(editText))
-                val action = SearchFragmentDirections.actionSearchFragmentToResultFragment(editText)
+            if (it.isNotEmpty()) {
+                val action = SearchFragmentDirections.actionSearchFragmentToResultFragment(it)
                 view.findNavController().navigate(action)
             }
         })
