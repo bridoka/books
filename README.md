@@ -18,3 +18,8 @@ API utilizada para buscar a lista de livros: https://itunes.apple.com/search?ter
 * Validação de obrigatoriedade de termo de pesquisa
 * Loading antes de abrir a webview de detalhes do livro selecionado
 * Opção de limpar campo de pesquisa
+
+## Proximos passos
+
+* Reescrita da tela inicial utilizando o compose (estudo)
+* Modularização para estudo do navigation multi-modulo
